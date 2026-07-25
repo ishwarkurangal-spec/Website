@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apex Builders | Premium Construction</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Playfair+Display:wght@700&amp;display=swap');
+        
+        :root {
+            --primary: #f59e0b;
+        }
+        
+        .hero-bg {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('https://picsum.photos/id/1015/1920/1080');
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #f59e0b;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        
+        .service-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4);
+        }
+        
+        .project-img {
+            transition: transform 0.5s ease;
+        }
+        
+        .project-card:hover .project-img {
+            transform: scale(1.08);
+        }
+        
+        .section-header {
+            position: relative;
+        }
+        
+        .section-header:after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, #f59e0b, #fbbf24);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .stat-number {
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* Advanced CSS Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes heroTextPop {
+            0% { transform: scale(0.8); opacity: 0; }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-25px); }
+        }
+
+        @keyframes shine {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        @keyframes rotateSlow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+        }
+
+        .animate-hero-text {
+            animation: heroTextPop 1.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        }
+
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .service-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .service-card:hover {
+            transform: translateY(-15px) rotate(1deg);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.4);
+        }
+
+        .shimmer {
+            background: linear-gradient(
+                90deg,
+                rgba(255,255,255,0) 0%,
+                rgba(255,255,255,0.3) 50%,
+                rgba(255,255,255,0) 100%
+            );
+            background-size: 200% 100%;
+            animation: shine 3s linear infinite;
+        }
+
+        .project-card {
+            overflow: hidden;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 40%;
+            height: 200%;
+            background: linear-gradient(
+                135deg,
+                transparent 40%,
+                rgba(251, 191, 36, 0.25) 50%,
+                transparent 60%
+            );
+            transform: skewX(-25deg);
+            opacity: 0;
+            transition: all 0.6s;
+            z-index: 1;
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+            left: 150%;
+        }
+
+        /* Staggered animations for services */
+        .service-card:nth-child(1) { animation-delay: 100ms; }
+        .service-card:nth-child(2) { animation-delay: 200ms; }
+        .service-card:nth-child(3) { animation-delay: 300ms; }
+    </style>
+</head>
+<body class="font-sans bg-zinc-950 text-zinc-100">
+    <!-- NAVBAR -->
+    <nav class="bg-zinc-900 border-b border-zinc-800 fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-amber-500 rounded-xl flex items-center justify-center text-zinc-950 font-bold text-2xl">A</div>
+                <div>
+                    <span class="text-2xl font-bold tracking-tighter">APEX</span>
+                    <span class="text-amber-400 font-semibold">BUILDERS</span>
+                </div>
+            </div>
+            
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+                <a href="#home" onclick="smoothScrollTo('home')" class="nav-link text-zinc-300 hover:text-white">Home</a>
+                <a href="#services" onclick="smoothScrollTo('services')" class="nav-link text-zinc-300 hover:text-white">Services</a>
+                <a href="#projects" onclick="smoothScrollTo('projects')" class="nav-link text-zinc-300 hover:text-white">Projects</a>
+                <a href="#about" onclick="smoothScrollTo('about')" class="nav-link text-zinc-300 hover:text-white">About</a>
+                <a href="#contact" onclick="smoothScrollTo('contact')" class="nav-link text-zinc-300 hover:text-white">Contact</a>
+            </div>
+            
+            <button onclick="toggleMobileMenu()" 
+                    class="md:hidden w-10 h-10 flex items-center justify-center text-2xl">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-zinc-900 border-t border-zinc-800 py-4">
+            <div class="flex flex-col px-6 gap-4 text-lg">
+                <a href="#home" onclick="toggleMobileMenu();smoothScrollTo('home')" class="py-2">Home</a>
+                <a href="#services" onclick="toggleMobileMenu();smoothScrollTo('services')" class="py-2">Services</a>
+                <a href="#projects" onclick="toggleMobileMenu();smoothScrollTo('projects')" class="py-2">Projects</a>
+                <a href="#about" onclick="toggleMobileMenu();smoothScrollTo('about')" class="py-2">About</a>
+                <a href="#contact" onclick="toggleMobileMenu();smoothScrollTo('contact')" class="py-2">Contact</a>
+                <button onclick="toggleMobileMenu();showContactModal()" 
+                        class="mt-4 bg-amber-500 hover:bg-amber-600 text-zinc-950 font-semibold py-3 px-6 rounded-2xl transition">
+                    Get Quote
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section id="home" class="hero-bg h-screen flex items-center pt-20 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 text-center">
+            <div class="max-w-3xl mx-auto">
+                <h1 class="text-6xl md:text-7xl font-bold leading-none tracking-tighter mb-6 animate-hero-text">
+                    BUILDING THE <span class="text-amber-400">FUTURE</span><br>ONE PROJECT AT A TIME
+                </h1>
+                <p class="text-xl text-zinc-300 mb-10 max-w-lg mx-auto">
+                    Premium construction services with unmatched craftsmanship and innovation.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button onclick="smoothScrollTo('projects')" 
+                            class="bg-amber-500 hover:bg-amber-600 text-zinc-950 font-semibold text-lg py-4 px-10 rounded-3xl transition flex items-center justify-center gap-3 group">
+                        VIEW OUR WORK
+                        <i class="fas fa-arrow-right group-active:translate-x-1 transition"></i>
+                    </button>
+                    <button onclick="showContactModal()" 
+                            class="border border-white/70 hover:border-white text-white font-medium text-lg py-4 px-10 rounded-3xl transition">
+                        GET A QUOTE
+                    </button>
+                </div>
+                
+                <!-- Trust signals -->
+                <div class="mt-16 flex flex-wrap justify-center gap-x-12 gap-y-6 text-sm">
+                    <div class="flex items-center gap-3">
+                        <div class="text-4xl font-semibold text-amber-400">250+</div>
+                        <div class="text-left">
+                            <div class="text-zinc-400 text-xs tracking-widest">PROJECTS COMPLETED</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="text-4xl font-semibold text-amber-400">15</div>
+                        <div class="text-left">
+                            <div class="text-zinc-400 text-xs tracking-widest">YEARS EXPERIENCE</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="text-4xl font-semibold text-amber-400">98%</div>
+                        <div class="text-left">
+                            <div class="text-zinc-400 text-xs tracking-widest">CLIENT SATISFACTION</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-10 left-1/2 flex flex-col items-center">
+            <div class="text-xs tracking-widest mb-2 text-zinc-400">SCROLL TO EXPLORE</div>
+            <div class="w-px h-12 bg-gradient-to-b from-transparent via-amber-400 to-transparent"></div>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="py-24 bg-zinc-950">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="inline-block px-4 py-1.5 bg-amber-500/10 text-amber-400 text-sm font-medium rounded-full mb-4">EXPERTISE</span>
+                <h2 class="section-header text-5xl font-bold tracking-tight text-center mb-4">Our Services</h2>
+                <p class="max-w-md mx-auto text-zinc-400">From concept to completion, we deliver excellence across every phase of construction.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 animate-fade-in-up">
+                <!-- Service 1 -->
+                <div class="service-card bg-zinc-900 border border-zinc-800 rounded-3xl overflow-hidden group">
+                    <div class="h-64 bg-[url('https://picsum.photos/id/1016/800/600')] bg-cover"></div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-start mb-6">
+                            <div>
+                                <i class="fas fa-building text-4xl text-amber-400 mb-4"></i>
+                                <h3 class="text-2xl font-semibold">Commercial Construction</h3>
+                            </div>
+                            <span class="text-xs bg-zinc-800 px-3 py-1 rounded-full">01</span>
+                        </div>
+                        <p class="text-zinc-400">Office buildings, retail spaces, and industrial facilities built with precision and sustainability in mind.</p>
+                        <button onclick="alert('Request a quote for Commercial Construction!')" 
+                                class="mt-8 text-amber-400 hover:text-amber-300 flex items-center gap-2 text-sm font-medium">
+                            LEARN MORE <span class="text-xl">→</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="service-card bg-zinc-900 border border-zinc-800 rounded-3xl overflow-hidden group">
+                    <div class="h-64 bg-[url('https://picsum.photos/id/133/800/600')] bg-cover"></div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-start mb-6">
+                            <div>
+                                <i class="fas fa-home text-4xl text-amber-400 mb-4"></i>
+                                <h3 class="text-2xl font-semibold">Residential Homes</h3>
+                            </div>
+                            <span class="text-xs bg-zinc-800 px-3 py-1 rounded-full">02</span>
+                        </div>
+                        <p class="text-zinc-400">Luxury custom homes and residential complexes that reflect your vision and lifestyle.</p>
+                        <button onclick="alert('Request a quote for Residential Homes!')" 
+                                class="mt-8 text-amber-400 hover:text-amber-300 flex items-center gap-2 text-sm font-medium">
+                            LEARN MORE <span class="text-xl">→</span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="service-card bg-zinc-900 border border-zinc-800 rounded-3xl overflow-hidden group">
+                    <div class="h-64 bg-[url('https://picsum.photos/id/201/800/600')] bg-cover"></div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-start mb-6">
+                            <div>
+                                <i class="fas fa-hard-hat text-4xl text-amber-400 mb-4"></i>
+                                <h3 class="text-2xl font-semibold">Renovation &amp; Restoration</h3>
+                            </div>
+                            <span class="text-xs bg-zinc-800 px-3 py-1 rounded-full">03</span>
+                        </div>
+                        <p class="text-zinc-400">Breathing new life into existing structures with modern upgrades and historic preservation.</p>
+                        <button onclick="alert('Request a quote for Renovation!')" 
+                                class="mt-8 text-amber-400 hover:text-amber-300 flex items-center gap-2 text-sm font-medium">
+                            LEARN MORE <span class="text-xl">→</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="py-24 bg-zinc-900">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12">
+                <div>
+                    <span class="inline-block px-4 py-1.5 bg-amber-500/10 text-amber-400 text-sm font-medium rounded-full mb-4">PORTFOLIO</span>
+                    <h2 class="section-header text-5xl font-bold tracking-tight">Signature Projects</h2>
+                </div>
+                <a href="#" onclick="alert('Full portfolio coming soon!')" 
+                   class="text-amber-400 hover:text-amber-300 flex items-center gap-3 group text-lg font-medium">
+                    VIEW ALL PROJECTS
+                    <span class="block w-8 h-px bg-amber-400 group-hover:w-12 transition-all"></span>
+                </a>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project Card -->
+                <div class="project-card group bg-zinc-800 rounded-3xl overflow-hidden">
+                    <div class="relative">
+                        <img src="https://picsum.photos/id/1015/800/600" alt="Skyline Tower" 
+                             class="project-img w-full h-80 object-cover">
+                        <div class="absolute top-6 right-6 bg-black/70 px-4 py-1 text-xs font-mono tracking-widest rounded">2025</div>
+                    </div>
+                    <div class="p-8">
+                        <div class="uppercase text-amber-400 text-xs tracking-widest mb-2">Downtown • 42 Floors</div>
+                        <h3 class="text-2xl font-semibold mb-2">Skyline Tower</h3>
+                        <p class="text-zinc-400 text-sm">Iconic mixed-use development featuring luxury apartments and commercial spaces.</p>
+                    </div>
+                </div>
+                
+                <div class="project-card group bg-zinc-800 rounded-3xl overflow-hidden">
+                    <div class="relative">
+                        <img src="https://picsum.photos/id/133/800/600" alt="Harbor Residences" 
+                             class="project-img w-full h-80 object-cover">
+                        <div class="absolute top-6 right-6 bg-black/70 px-4 py-1 text-xs font-mono tracking-widest rounded">2024</div>
+                    </div>
+                    <div class="p-8">
+                        <div class="uppercase text-amber-400 text-xs tracking-widest mb-2">Waterfront • Luxury</div>
+                        <h3 class="text-2xl font-semibold mb-2">Harbor Residences</h3>
+                        <p class="text-zinc-400 text-sm">Exclusive beachfront villas with private docks and sustainable design.</p>
+                    </div>
+                </div>
+                
+                <div class="project-card group bg-zinc-800 rounded-3xl overflow-hidden">
+                    <div class="relative">
+                        <img src="https://picsum.photos/id/201/800/600" alt="GreenTech Hub" 
+                             class="project-img w-full h-80 object-cover">
+                        <div class="absolute top-6 right-6 bg-black/70 px-4 py-1 text-xs font-mono tracking-widest rounded">2023</div>
+                    </div>
+                    <div class="p-8">
+                        <div class="uppercase text-amber-400 text-xs tracking-widest mb-2">Tech Park</div>
+                        <h3 class="text-2xl font-semibold mb-2">GreenTech Hub</h3>
+                        <p class="text-zinc-400 text-sm">LEED Platinum certified corporate campus with advanced energy systems.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="py-20 bg-black">
+        <div class="max-w-7xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
+            <div>
+                <div id="stat1" class="stat-number text-6xl font-bold text-amber-400 mb-2">0</div>
+                <div class="text-zinc-400">Happy Clients</div>
+            </div>
+            <div>
+                <div id="stat2" class="stat-number text-6xl font-bold text-amber-400 mb-2">0</div>
+                <div class="text-zinc-400">Engineers &amp; Architects</div>
+            </div>
+            <div>
+                <div id="stat3" class="stat-number text-6xl font-bold text-amber-400 mb-2">0</div>
+                <div class="text-zinc-400">Projects Delivered</div>
+            </div>
+            <div>
+                <div id="stat4" class="stat-number text-6xl font-bold text-amber-400 mb-2">0</div>
+                <div class="text-zinc-400">Awards Won</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="py-24 bg-zinc-950">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-12 gap-16 items-center">
+                <div class="md:col-span-5">
+                    <img src="https://picsum.photos/id/866/800/1000" alt="Our Team" 
+                         class="rounded-3xl w-full shadow-2xl">
+                </div>
+                <div class="md:col-span-7">
+                    <div class="max-w-lg">
+                        <span class="inline px-5 py-2 bg-amber-500/10 text-amber-400 rounded-3xl text-sm">EST. 2010</span>
+                        <h2 class="text-5xl font-bold leading-tight mt-6 mb-8">Craftsmanship meets innovation</h2>
+                        <p class="text-zinc-300 text-lg leading-relaxed">
+                            Apex Builders was founded with a vision to redefine the construction industry through sustainable practices, cutting-edge technology, and uncompromising quality.
+                        </p>
+                        <div class="mt-10 grid grid-cols-2 gap-8">
+                            <div>
+                                <div class="font-mono text-amber-400 mb-1">MISSION</div>
+                                <p class="text-sm text-zinc-400">To build spaces that inspire and last for generations.</p>
+                            </div>
+                            <div>
+                                <div class="font-mono text-amber-400 mb-1">VALUES</div>
+                                <p class="text-sm text-zinc-400">Integrity • Innovation • Sustainability • Excellence</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="py-24 bg-zinc-900">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="section-header text-5xl font-bold tracking-tight">What Our Clients Say</h2>
+            </div>
+            
+            <div class="max-w-3xl mx-auto">
+                <div id="testimonial-slider" class="relative">
+                    <!-- JS populated -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="py-24 bg-zinc-950 border-t border-zinc-800">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-16">
+                <div>
+                    <h2 class="text-5xl font-bold leading-none tracking-tight mb-8">Let's build something<br>extraordinary together</h2>
+                    <p class="text-zinc-400 max-w-sm">Ready to start your next project? Our team is here to help turn your vision into reality.</p>
+                    
+                    <div class="mt-12 space-y-8">
+                        <div class="flex gap-5">
+                            <i class="fas fa-phone text-2xl text-amber-400 mt-1"></i>
+                            <div>
+                                <div class="text-sm text-zinc-400">CALL US</div>
+                                <a href="tel:+15551234567" class="text-xl font-medium">+1 (555) 123-4567</a>
+                            </div>
+                        </div>
+                        <div class="flex gap-5">
+                            <i class="fas fa-envelope text-2xl text-amber-400 mt-1"></i>
+                            <div>
+                                <div class="text-sm text-zinc-400">EMAIL US</div>
+                                <a href="mailto:hello@apexbuilders.com" class="text-xl font-medium">hello@apexbuilders.com</a>
+                            </div>
+                        </div>
+                        <div class="flex gap-5">
+                            <i class="fas fa-map-marker-alt text-2xl text-amber-400 mt-1"></i>
+                            <div>
+                                <div class="text-sm text-zinc-400">VISIT US</div>
+                                <div class="text-xl font-medium">123 Construction Ave, Suite 400<br>Metropolis, CA 90210</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <form id="contactForm" class="space-y-6 bg-zinc-900 p-10 rounded-3xl border border-zinc-800">
+                    <div class="grid grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-xs text-zinc-400 mb-2">FIRST NAME</label>
+                            <input type="text" id="fname" 
+                                   class="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-400 rounded-2xl px-6 py-4 outline-none transition">
+                        </div>
+                        <div>
+                            <label class="block text-xs text-zinc-400 mb-2">LAST NAME</label>
+                            <input type="text" id="lname" 
+                                   class="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-400 rounded-2xl px-6 py-4 outline-none transition">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-xs text-zinc-400 mb-2">EMAIL ADDRESS</label>
+                        <input type="email" id="email" 
+                               class="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-400 rounded-2xl px-6 py-4 outline-none transition">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-xs text-zinc-400 mb-2">PROJECT TYPE</label>
+                        <select id="projectType" 
+                                class="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-400 rounded-2xl px-6 py-4 outline-none transition">
+                            <option value="">Select a project type</option>
+                            <option value="commercial">Commercial</option>
+                            <option value="residential">Residential</option>
+                            <option value="renovation">Renovation</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-xs text-zinc-400 mb-2">MESSAGE</label>
+                        <textarea id="message" rows="5"
+                                  class="w-full bg-zinc-800 border border-zinc-700 focus:border-amber-400 rounded-3xl px-6 py-4 outline-none transition resize-none"></textarea>
+                    </div>
+                    
+                    <button type="submit" 
+                            class="w-full bg-amber-500 hover:bg-amber-600 text-zinc-950 font-semibold py-5 rounded-3xl text-lg transition">
+                        SEND MESSAGE
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black py-16 border-t border-zinc-900">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between gap-12">
+                <div>
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-9 h-9 bg-amber-500 rounded-2xl flex items-center justify-center text-zinc-950 font-bold text-3xl">A</div>
+                        <div class="text-3xl font-bold tracking-tighter">APEX BUILDERS</div>
+                    </div>
+                    <p class="text-zinc-500 max-w-xs">Crafting tomorrow's landmarks today.</p>
+                </div>
+                
+                <div class="grid grid-cols-3 gap-12">
+                    <div>
+                        <div class="uppercase text-xs tracking-widest mb-6 text-zinc-500">Company</div>
+                        <div class="space-y-3 text-sm">
+                            <a href="#" class="block hover:text-amber-400">About Us</a>
+                            <a href="#" class="block hover:text-amber-400">Careers</a>
+                            <a href="#" class="block hover:text-amber-400">Sustainability</a>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="uppercase text-xs tracking-widest mb-6 text-zinc-500">Services</div>
+                        <div class="space-y-3 text-sm">
+                            <a href="#" class="block hover:text-amber-400">Commercial</a>
+                            <a href="#" class="block hover:text-amber-400">Residential</a>
+                            <a href="#" class="block hover:text-amber-400">Renovations</a>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="uppercase text-xs tracking-widest mb-6 text-zinc-500">Follow</div>
+                        <div class="flex gap-5 text-2xl">
+                            <a href="#" class="hover:text-amber-400"><i class="fab fa-instagram"></i></a>
+                            <a href="#" class="hover:text-amber-400"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="hover:text-amber-400"><i class="fab fa-facebook"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-16 pt-8 border-t border-zinc-900 text-xs text-zinc-500 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div>© 2026 Apex Builders. All rights reserved.</div>
+                <div class="flex gap-6">
+                    <a href="#" class="hover:text-zinc-300">Privacy</a>
+                    <a href="#" class="hover:text-zinc-300">Terms</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- CONTACT MODAL -->
+    <div id="contactModal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-sm z-[100] flex items-center justify-center">
+        <div class="bg-zinc-900 rounded-3xl max-w-md w-full mx-4 overflow-hidden">
+            <div class="p-8">
+                <div class="flex justify-between items-center mb-8">
+                    <h3 class="text-2xl font-semibold">Request a Quote</h3>
+                    <button onclick="hideContactModal()" class="text-3xl leading-none text-zinc-400 hover:text-white">×</button>
+                </div>
+                
+                <form id="modalForm" class="space-y-6">
+                    <input type="text" placeholder="Your Name" 
+                           class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 focus:border-amber-400 outline-none">
+                    <input type="email" placeholder="Email Address" 
+                           class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 focus:border-amber-400 outline-none">
+                    <input type="tel" placeholder="Phone Number" 
+                           class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-6 py-4 focus:border-amber-400 outline-none">
+                    <textarea placeholder="Tell us about your project..." rows="4"
+                              class="w-full bg-zinc-800 border border-zinc-700 rounded-3xl px-6 py-4 focus:border-amber-400 outline-none"></textarea>
+                    
+                    <button type="button" onclick="submitQuote()" 
+                            class="w-full py-5 bg-amber-500 text-zinc-950 font-semibold rounded-3xl">SUBMIT REQUEST</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tailwind script already loaded via CDN
+        
+        function smoothScrollTo(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                const navHeight = 80;
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.scrollY - navHeight;
+                
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }
+        
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+        
+        function showContactModal() {
+            document.getElementById('contactModal').classList.remove('hidden');
+        }
+        
+        function hideContactModal() {
+            document.getElementById('contactModal').classList.add('hidden');
+        }
+        
+        // Testimonial Carousel
+        const testimonials = [
+            {
+                text: "Apex Builders transformed our vision into a masterpiece. Their attention to detail is unmatched.",
+                name: "Sarah Chen",
+                role: "CEO, Vertex Corp",
+                img: "https://picsum.photos/id/64/128"
+            },
+            {
+                text: "The team delivered our dream home ahead of schedule and under budget. Truly exceptional.",
+                name: "Marcus Rodriguez",
+                role: "Homeowner",
+                img: "https://picsum.photos/id/91/128"
+            },
+            {
+                text: "Professional, innovative, and reliable. They exceeded every expectation on our commercial project.",
+                name: "Elena Patel",
+                role: "Project Director, Harbor Group",
+                img: "https://picsum.photos/id/201/128"
+            }
+        ];
+        
+        let currentTestimonial = 0;
+        
+        function renderTestimonials() {
+            const container = document.getElementById('testimonial-slider');
+            container.innerHTML = `
+                <div class="bg-zinc-800 rounded-3xl p-10 md:p-16 relative">
+                    <div class="text-7xl text-amber-400/20 absolute -top-6 -left-2">“</div>
+                    <p class="text-xl md:text-2xl leading-relaxed text-zinc-200 italic mb-10">
+                        ${testimonials[currentTestimonial].text}
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <img src="${testimonials[currentTestimonial].img}" 
+                             class="w-12 h-12 rounded-2xl object-cover">
+                        <div>
+                            <div class="font-semibold">${testimonials[currentTestimonial].name}</div>
+                            <div class="text-sm text-zinc-400">${testimonials[currentTestimonial].role}</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Navigation -->
+                    <div class="flex justify-between mt-12">
+                        <button onclick="prevTestimonial()" 
+                                class="w-12 h-12 flex items-center justify-center border border-zinc-700 hover:border-amber-400 rounded-2xl transition text-2xl">←</button>
+                        <button onclick="nextTestimonial()" 
+                                class="w-12 h-12 flex items-center justify-center border border-zinc-700 hover:border-amber-400 rounded-2xl transition text-2xl">→</button>
+                    </div>
+                </div>
+            `;
+        }
+        
+        function nextTestimonial() {
+            currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+            renderTestimonials();
+        }
+        
+        function prevTestimonial() {
+            currentTestimonial = (currentTestimonial - 1 + testimonials.length) % testimonials.length;
+            renderTestimonials();
+        }
+        
+        // Animate stats
+        function animateStats() {
+            const stats = [
+                {id: 'stat1', target: 1240, duration: 2000},
+                {id: 'stat2', target: 87, duration: 1800},
+                {id: 'stat3', target: 258, duration: 2200},
+                {id: 'stat4', target: 42, duration: 1600}
+            ];
+            
+            stats.forEach(stat => {
+                const element = document.getElementById(stat.id);
+                let start = 0;
+                const increment = Math.ceil(stat.target / 60);
+                
+                const timer = setInterval(() => {
+                    start += increment;
+                    if (start >= stat.target) {
+                        start = stat.target;
+                        clearInterval(timer);
+                    }
+                    element.textContent = start.toLocaleString();
+                }, 40);
+            });
+        }
+        
+        // Contact form handler
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert("Thank you! Your message has been received. We'll contact you within 24 hours.");
+            this.reset();
+        });
+        
+        function submitQuote() {
+            alert("Quote request received! Our team will reach out shortly.");
+            hideContactModal();
+        }
+        
+        // Initialize everything
+        window.onload = function() {
+            renderTestimonials();
+            // Trigger stats animation when scrolled into view
+            setTimeout(() => {
+                const statsSection = document.querySelector('.bg-black');
+                if (statsSection) {
+                    const observer = new IntersectionObserver((entries) => {
+                        if (entries[0].isIntersecting) {
+                            animateStats();
+                            observer.disconnect();
+                        }
+                    }, { threshold: 0.5 });
+                    observer.observe(statsSection);
+                }
+            }, 800);
+        };
+        
+        // Keyboard escape for modal
+        document.addEventListener('keydown', function(e) {
+            if (e.key === "Escape") {
+                const modal = document.getElementById('contactModal');
+                if (!modal.classList.contains('hidden')) hideContactModal();
+            }
+        });
+    </script>
+</body>
+</html>
